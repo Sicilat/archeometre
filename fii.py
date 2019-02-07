@@ -3,10 +3,17 @@ from tkinter import ttk
 
 root = Tk()
 
+capa = 0
+capb = 0
+capc = 0
+x_pos = 0
+y_pos = 0
+z_pos = 0
+
 content = ttk.Frame(root, padding=(3,3,12,12))
-capa_lbl = ttk.Label(content, text="val_capA")
-capb_lbl = ttk.Label(content, text="val_capB")
-capc_lbl = ttk.Label(content, text="val_capC")
+capa_lbl = ttk.Label(content, text=capa)
+capb_lbl = ttk.Label(content, text=capb)
+capc_lbl = ttk.Label(content, text=capc)
 calculate = ttk.Button(content, text="Calculer")
 copy = ttk.Button(content, text="Copier")
 ref = ttk.Frame(content)
@@ -18,11 +25,11 @@ y_ref_val_lbl = ttk.Label(ref, text="y_val_ref")
 z_ref_lbl = ttk.Label(ref, text="Z")
 z_ref_val_lbl = ttk.Label(ref, text="z_val_ref")
 x_pos_lbl = ttk.Label(pos, text="X")
-x_pos_val_lbl = ttk.Label(pos, text="x_val_pos")
+x_pos_val_lbl = ttk.Label(pos, text=x_pos)
 y_pos_lbl = ttk.Label(pos, text="Y")
-y_pos_val_lbl = ttk.Label(pos, text="y_val_pos")
+y_pos_val_lbl = ttk.Label(pos, text=y_pos)
 z_pos_lbl = ttk.Label(pos, text="Z")
-z_pos_val_lbl = ttk.Label(pos, text="z_val_pos")
+z_pos_val_lbl = ttk.Label(pos, text=z_pos)
 
 
 content.grid(column=0, row=0, sticky=(N, S, E, W))
