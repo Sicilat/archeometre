@@ -3,12 +3,40 @@ from tkinter import ttk
 
 root = Tk()
 
+global capa
+global capb
+global capc
+global x_pos
+global y_pos
+global z_pos
+
 capa = 0
 capb = 0
 capc = 0
 x_pos = 0
 y_pos = 0
 z_pos = 0
+
+def reset():
+    global capa
+    global capb
+    global capc
+    global x_pos
+    global y_pos
+    global z_pos
+    capa = 0
+    capb = 0
+    capc = 0
+    x_pos = 0
+    y_pos = 0
+    z_pos = 0
+
+
+
+
+
+
+
 
 content = ttk.Frame(root, padding=(3,3,12,12))
 capa_lbl = ttk.Label(content, text=capa)
