@@ -1,6 +1,7 @@
 import keyboard
 import os
 import time
+import serial
 
 x_ref = 0
 y_ref = 0
@@ -14,6 +15,9 @@ z_pos = 0
 
 def clear():
 	os.system('clear||cls')
+
+def get_data():
+	//Récupérer les infos de l'Arduino
 
 def menu(x_ref, y_ref, z_ref, cap_a, cap_b, cap_c, x_pos, y_pos, z_pos):
 	clear()
@@ -49,7 +53,6 @@ def menu(x_ref, y_ref, z_ref, cap_a, cap_b, cap_c, x_pos, y_pos, z_pos):
 	print('Commandes : ')
 	print(' ')
 	print('A -> Changer le référentiel sur X')
-	print('Z -> Changer le référentiel sur Y')
 	print('E -> Changer le référentiel sur Z')
 	print('Q -> Calculer')
 	print('S -> Reset des capteurs')
@@ -64,10 +67,15 @@ def calcul(x_ref, y_ref, z_ref, cap_a, cap_b, cap_c, x_pos, y_pos, z_pos):
 	return x_pos, y_pos, z_pos
 
 while True:
+	y_ref, cap_a, cap_b, cap_c = get_data()
 	menu(x_ref, y_ref, z_ref, cap_a, cap_b, cap_c, x_pos, y_pos, z_pos)
 	if keyboard.is_pressed('r'):
 		clear()
 		exit()
+	elif keyboard.is_pressed('a'):
+		x_ref = int(input())
+	elif keyboard.is_pressed('e'):
+		z_ref = int(input())
 	elif keyboard.is_pressed('s'):
 		cap_a = 0
 		cap_b = 0
