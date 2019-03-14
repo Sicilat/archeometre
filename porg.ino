@@ -8,26 +8,8 @@ double getUSvalue(){
 	return data;
 }
 
-double getZpos(double Rb, double Rc){
-	return (((Rb * Rb) - (Rc * Rc) + 1) / 2);
-}
-
-double getXpos(double Ra, double Rb){
-	return (((Ra * Ra) - (Rb * Rb) - 1) / (-2));
-}
-
-double getYpos(double Rb, double X, double Z){
-	return (sqrt((Rb * Rb) - (X * X) - (Z * Z)));
-}
-
 void transmit_data(double cap[], double pos[], double us){
 	//Transmettre les données à l'interface intermédiaire	
-}
-
-double get_pos(double pos[], double Rb, double Rc, double Ra){
-	double X = getXpos(Ra, Rb);
-	double Z = getZpos(Rb, Rc);
-	double Y = getYpos(Rb, X, Y);
 }
 
 double getRAcap(){
@@ -58,12 +40,6 @@ void setup(){
 	//Initialisation des capteurs US
 
 	us = 0;
-	
-	//Initialisation du tableau de la position
-	
-	pos[0] = 0;
-	pos[1] = 0;
-	pos[2] = 0;
   
 	//Initialisation du tableau des capteurs fils tendus
 	
