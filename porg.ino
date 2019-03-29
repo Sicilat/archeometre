@@ -15,7 +15,7 @@ const int L1 = 3;
 double getUSvalue(){
 	digitalWrite(TRIGGER_PIN, HIGH);
   	delayMicroseconds(10);
-  	igitalWrite(TRIGGER_PIN, LOW);
+  	digitalWrite(TRIGGER_PIN, LOW);
 
   	long measure = pulseIn(ECHO_PIN, HIGH, MEASURE_TIMEOUT);
   	float distance_mm = measure / 2.0 * SOUND_SPEED;
@@ -25,7 +25,11 @@ double getUSvalue(){
 }
 
 void transmit_data(double cap[], double us){
-	//Transmettre les données à l'interface
+	Serial.print('trsm');
+	Serial.print(cap[0]);
+	Serial.print(cap[1]);
+	Serial.print(cap[2]);
+	Serial.print(us);
 }
 
 double getRAcap(){
