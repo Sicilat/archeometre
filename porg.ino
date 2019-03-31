@@ -11,76 +11,79 @@ const int potB = 4;
 const int potC = 3;
 const int btn = 5;
 const int L1 = 3;
+double distance_mm;
 
-double getUSvalue(){
-	digitalWrite(TRIGGER_PIN, HIGH);
-  	delayMicroseconds(10);
-  	digitalWrite(TRIGGER_PIN, LOW);
+double getUSvalue(float distance_mm){
+  digitalWrite(TRIGGER_PIN, HIGH);
+    delayMicroseconds(10);
+    digitalWrite(TRIGGER_PIN, LOW);
 
-  	long measure = pulseIn(ECHO_PIN, HIGH, MEASURE_TIMEOUT);
-  	float distance_mm = measure / 2.0 * SOUND_SPEED;
+   
+    long measure = pulseIn(ECHO_PIN, HIGH, MEASURE_TIMEOUT);
+    distance_mm = measure / 2.0 * SOUND_SPEED;
 
-  	float data = distance_mm / 1000.0, 2;
-	return data;
+    float data = distance_mm / 1000.0;
+  return data;
 }
 
 void transmit_data(double cap[], double us){
-	Serial.print('trsm');
-	Serial.print(cap[0]);
-	Serial.print(cap[1]);
-	Serial.print(cap[2]);
-	Serial.print(us);
+  Serial.print('trsm');
+  Serial.print(cap[0]);
+  Serial.print(cap[1]);
+  Serial.print(cap[2]);
+  Serial.print(us);
 }
 
 double getRAcap(){
-	int data = analogRead(potA);
-	return data;
+  int data = analogRead(potA);
+  return data;
 }
 
 double getRBcap(){
-	//Récupérer la valeur du capteur 2
-	int data = analogRead(potB);
-	return data;
+  //Récupérer la valeur du capteur 2
+  int data = analogRead(potB);
+  return data;
 }
 
 double getRCcap(){
-	//Récupérer la valeur du capteur 3
-	int data = analogRead(potC);
-	return data;
+  //Récupérer la valeur du capteur 3
+  int data = analogRead(potC);
+  return data;
 }
 
-double get_cap(double cap[]){
-	cap[0] = getRAcap();
-	cap[1] = getRBcap();
-	cap[2] = getRCcap();
-	return cap;
+int get_cap(double cap[]){
+  cap[0] = getRAcap();
+  cap[1] = getRBcap();
+  cap[2] = getRCcap();
+  return cap;
 }
 
 void setup(){
-	Serial.begin(9600);
-	
-	//Initialisation des capteurs US
-
-	us = 0;
+  Serial.begin(9600);
   
-	//Initialisation du tableau des capteurs fils tendus
-	
-	cap[0] = 0;
-	cap[1] = 0;
-	cap[2] = 0;
+  //Initialisation des capteurs US
 
-  	pinMode(TRIGGER_PIN, OUTPUT);   //initialise les broches.
-  	digitalWrite(TRIGGER_PIN, LOW);
-  	pinMode(ECHO_PIN, INPUT);
-  	pinMode(L1, OUTPUT); //L1 est une broche de sortie
-  	pinMode(potA, INPUT);
-  	pinMode(potB, INPUT);
-  	pinMode(potC, INPUT);
+  double us = 0;
+  
+  //Initialisation du tableau des capteurs fils tendus
+  
+  cap[0] = 0;
+  cap[1] = 0;
+  cap[2] = 0;
+
+    pinMode(TRIGGER_PIN, OUTPUT);   //initialise les broches.
+    digitalWrite(TRIGGER_PIN, LOW);
+    pinMode(ECHO_PIN, INPUT);
+    pinMode(L1, OUTPUT); //L1 est une broche de sortie
+    pinMode(potA, INPUT);
+    pinMode(potB, INPUT);
+    pinMode(potC, INPUT);
+    pinMode(btn, INPUT);
 }
 
 void loop(){
-	digitalWrite(L1, HIGH);
-	if digitalRead(btn){
-		transmit_data(get_cap(), getUSvalue())
-	}
+  digitalWrite(L1, HIGH);
+  if (digitalRead(btn) == 0){
+    transmit_data(get_cap(cap), getUSvalue(distance_mm));
+  }
 }
