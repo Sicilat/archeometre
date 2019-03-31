@@ -42,7 +42,7 @@ def confirm_data(data):
 	print('Pos_X = ' + data[5])
 	print('Pos_Y = ' + data[6])
 	print('Pos_Z = ' + data[7])
-	print('Do you want to confirm this values ? (y/n)')
+	print('Do you want to confirm these values ? (y/n)')
 	asw = 'o'
 	while asw != 'y' and asw != 'n':
 		asw = input('> ').lower()
