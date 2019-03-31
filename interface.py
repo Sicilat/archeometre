@@ -18,7 +18,7 @@ def clear():
 
 def write_file(data):
 	f = open('./output.txt', 'a', encoding = "UTF-8")
-	f.write('Cap_A = ' + data[0] + '\r\n')
+	f.write('\nCap_A = ' + data[0] + '\r\n')
 	f.write('Cap_B = ' + data[1] + '\r\n')
 	f.write('Cap_C = ' + data[2] + '\r\n')
 	f.write('Ref_X = ' + data[4][0] + '\r\n')
