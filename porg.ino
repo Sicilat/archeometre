@@ -9,7 +9,7 @@ const unsigned long MEASURE_TIMEOUT = 25000UL;    // 25ms = ~8m à 340m/s
 const int potA = 5;  //Défini le pin du potentiometre
 const int potB = 4;
 const int potC = 3;
-const int btn = 5
+const int btn = 5;
 const int L1 = 3;
 
 double getUSvalue(){
