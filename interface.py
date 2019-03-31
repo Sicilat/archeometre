@@ -17,7 +17,18 @@ def clear():
 	os.system('clear|cls')
 
 def write_file(data):
-	#To write
+	f = open('./output.txt', 'a', encoding = "UTF-8")
+	f.write('Cap_A = ' + data[0] + '\r\n')
+	f.write('Cap_B = ' + data[1] + '\r\n')
+	f.write('Cap_C = ' + data[2] + '\r\n')
+	f.write('Ref_X = ' + data[4][0] + '\r\n')
+	f.write('Ref_Y = ' + data[3] + '\r\n')
+	f.write('Ref_Z = ' + data[4][1] + '\r\n')
+	f.write('Pos_X = ' + data[5] + '\r\n')
+	f.write('Pos_Y = ' + data[6] + '\r\n')
+	f.write('Pos_Z = ' + data[7] + '\r\n')
+	f.close()
+	return
 
 def confirm_data(data):
 	clear()
