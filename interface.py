@@ -17,7 +17,7 @@ def clear():
 	os.system('clear|cls')
 
 def write_file(data):
-	//To write
+	#To write
 
 def confirm_data(data):
 	clear()
@@ -28,7 +28,10 @@ def confirm_data(data):
 	print('Ref_X = ' + data[4][0])
 	print('Ref_Y = ' + data[3])
 	print('Ref_Z = ' + data[4][1])
-	print('Do you wnat to confirm this values ? (y/n)')
+	print('Pos_X = ' + data[5])
+	print('Pos_Y = ' + data[6])
+	print('Pos_Z = ' + data[7])
+	print('Do you want to confirm this values ? (y/n)')
 	asw = 'o'
 	while asw != 'y' and asw != 'n':
 		asw = input('> ').lower()
@@ -37,15 +40,25 @@ def confirm_data(data):
 	else:
 		return
 
+def parse_lenght(data):
+	return (data / 1024) * 1.39
+
+def calculate(info):
+	z = ((info[2] * info[2]) - (info[3] * info[3]) + 1) / 2
+	x = ((info[1] * info[1]) - (info[2] * info[2]) - 1) / (-2)
+	y = sqrt((info[2] * info[2]) - (x * x) - (z * z))
+	return x, y, z
+
 def handle_data(ser, asw, refs):
 	if asw == 'trsm':
-		data = [0, 0, 0, 0, [0, 0]]
-		data[0] = ser.readline().rstrip()
-		data[1] = ser.readline().rstrip()
-		data[2] = ser.readline().rstrip()
+		data = [0, 0, 0, 0, [0, 0], 0, 0, 0]
+		data[0] = parse_lenght(ser.readline().rstrip())
+		data[1] = parse_lenght(ser.readline().rstrip())
+		data[2] = parse_lenght(ser.readline().rstrip())
 		data[3] = ser.readline().rstrip()
 		refs = get_refs()
 		data[4][0], data[4][1] = refs
+		data[5], data[6], data[7] = calculate(data)
 		confirm_data(data)
 
 while True:
