@@ -14,7 +14,7 @@ def get_refs():
 	return data
 
 def clear():
-	os.system('clear|cls')
+	os.system('clear||cls')
 
 def write_file(data):
 	f = open('./output.txt', 'a', encoding = "UTF-8")
