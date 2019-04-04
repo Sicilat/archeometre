@@ -55,9 +55,9 @@ def parse_lenght(data):
 	return (data / 1024) * 1.39
 
 def calculate(info):
-	z = ((info[2] * info[2]) - (info[3] * info[3]) + 1) / 2
-	x = ((info[1] * info[1]) - (info[2] * info[2]) - 1) / (-2)
-	y = sqrt((info[2] * info[2]) - (x * x) - (z * z))
+	z = ((info[1] * info[1]) - (info[2] * info[2]) + 1) / 2 + info[4][1]
+	x = ((info[0] * info[0]) - (info[1] * info[1]) - 1) / (-2) + info[4][0]
+	y = sqrt((info[1] * info[1]) - (x * x) - (z * z)) + info[3]
 	return x, y, z
 
 def handle_data(ser, asw, refs):
