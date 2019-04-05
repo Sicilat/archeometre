@@ -13,8 +13,8 @@ const int potB = 4;
 const int potC = 3;
 const int btn = 7;
 const int L1 = 3;
-const int L2 = 4;
-const int L3 = 1;
+const int L2 = 8;
+const int L3 = 9;
 double distance_mm;
 
 double getUSvalue(float distance_mm){
