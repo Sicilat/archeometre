@@ -1,4 +1,5 @@
 import serial, time, os
+from math import *
 
 ser = serial.Serial('/dev/ttyUSB0', 9600, timeout=1)
 print(ser.name)
@@ -18,55 +19,62 @@ def clear():
 
 def write_file(data):
 	f = open('./output.txt', 'a', encoding = "UTF-8")
-	f.write('\nCap_A = ' + data[0] + '\r\n')
-	f.write('Cap_B = ' + data[1] + '\r\n')
-	f.write('Cap_C = ' + data[2] + '\r\n')
-	f.write('Ref_X = ' + data[4][0] + '\r\n')
-	f.write('Ref_Y = ' + data[3] + '\r\n')
-	f.write('Ref_Z = ' + data[4][1] + '\r\n')
-	f.write('Pos_X = ' + data[5] + '\r\n')
-	f.write('Pos_Y = ' + data[6] + '\r\n')
-	f.write('Pos_Z = ' + data[7] + '\r\n')
+	f.write('\nCap_A = ' + str(data[0]) + '\r\n')
+	f.write('Cap_B = ' + str(data[1]) + '\r\n')
+	f.write('Cap_C = ' + str(data[2]) + '\r\n')
+	f.write('Ref_X = ' + str(data[4][0]) + '\r\n')
+	f.write('Ref_Y = ' + str(data[3]) + '\r\n')
+	f.write('Ref_Z = ' + str(data[4][1]) + '\r\n')
+	f.write('Pos_X = ' + str(data[5]) + '\r\n')
+	f.write('Pos_Y = ' + str(data[6]) + '\r\n')
+	f.write('Pos_Z = ' + str(data[7]) + '\r\n')
 	f.close()
 	return
 
 def confirm_data(data):
 	clear()
 	print('Received information !')
-	print('Cap_A = ' + data[0])
-	print('Cap_B = ' + data[1])
-	print('Cap_C = ' + data[2])
-	print('Ref_X = ' + data[4][0])
-	print('Ref_Y = ' + data[3])
-	print('Ref_Z = ' + data[4][1])
-	print('Pos_X = ' + data[5])
-	print('Pos_Y = ' + data[6])
-	print('Pos_Z = ' + data[7])
+	print('Cap_A = ' + str(data[0]))
+	print('Cap_B = ' + str(data[1]))
+	print('Cap_C = ' + str(data[2]))
+	print('Ref_X = ' + str(data[4][0]))
+	print('Ref_Y = ' + str(data[3]))
+	print('Ref_Z = ' + str(data[4][1]))
+	print('Pos_X = ' + str(data[5]))
+	print('Pos_Y = ' + str(data[6]))
+	print('Pos_Z = ' + str(data[7]))
 	print('Do you want to confirm these values ? (y/n)')
 	asw = 'o'
 	while asw != 'y' and asw != 'n':
 		asw = input('> ').lower()
 	if asw == 'y':
 		write_file(data)
+		exit()
 	else:
-		return
+		exit()
 
 def parse_lenght(data):
 	return (data / 1024) * 1.39
 
 def calculate(info):
-	z = ((info[1] * info[1]) - (info[2] * info[2]) + 1) / 2 + info[4][1]
-	x = ((info[0] * info[0]) - (info[1] * info[1]) - 1) / (-2) + info[4][0]
-	y = sqrt((info[1] * info[1]) - (x * x) - (z * z)) + info[3]
+	print(info)
+	z = ((info[1] * info[1]) - (info[2] * info[2]) + 1) / 2
+	print(z)
+	x = ((info[0] * info[0]) - (info[1] * info[1]) - 1) / (-2)
+	print(x)
+	y = sqrt((info[1] * info[1]) - (x * x) - (z * z))
+	x += info[4][1]
+	z += info[4][0]
+	y += info[3]
 	return x, y, z
 
 def handle_data(ser, asw, refs):
 	if asw == 'trsm':
 		data = [0, 0, 0, 0, [0, 0], 0, 0, 0]
-		data[0] = parse_lenght(ser.readline().rstrip())
-		data[1] = parse_lenght(ser.readline().rstrip())
-		data[2] = parse_lenght(ser.readline().rstrip())
-		data[3] = ser.readline().rstrip()
+		data[0] = parse_lenght(float(ser.readline().rstrip().decode()))
+		data[1] = parse_lenght(float(ser.readline().rstrip().decode()))
+		data[2] = parse_lenght(float(ser.readline().rstrip().decode()))
+		data[3] = float(ser.readline().rstrip().decode())
 		refs = get_refs()
 		data[4][0], data[4][1] = refs
 		data[5], data[6], data[7] = calculate(data)
@@ -74,9 +82,10 @@ def handle_data(ser, asw, refs):
 
 while True:
 	s = ser.read(10)
-	line = ser.readline().rstrip()
+	line = ser.readline().rstrip().decode()
+	print(line)
 	if line != '':
 		handle_data(ser, line, refs)
-	ser.flushInput()
-	ser.flushOutput()
-	sleep(0.1)
+	#ser.flushInput()
+	#ser.flushOutput()
+	time.sleep(0.1)

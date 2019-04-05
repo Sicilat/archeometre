@@ -21,25 +21,27 @@ double getUSvalue(float distance_mm){
     digitalWrite(TRIGGER_PIN, HIGH);
     delayMicroseconds(10);
     digitalWrite(TRIGGER_PIN, LOW);
-
-   
+    double distance_mm1;
+    double distance_mm2;
+    double distance_mm3;
+    
     long measure1 = pulseIn(ECHO1_PIN, HIGH, MEASURE_TIMEOUT);
-    distance_mm1 = measure1 / 2.0 * SOUND_SPEED;
+    distance_mm1 = measure1 / 2.0 * SOUND_SPEED / 1000;
     long measure2 = pulseIn(ECHO2_PIN, HIGH, MEASURE_TIMEOUT);
-    distance_mm2 = measure2 / 2.0 * SOUND_SPEED;
+    distance_mm2 = measure2 / 2.0 * SOUND_SPEED / 1000;
     long measure3 = pulseIn(ECHO3_PIN, HIGH, MEASURE_TIMEOUT);
-    distance_mm3 = measure3 / 2.0 * SOUND_SPEED;
+    distance_mm3 = measure3 / 2.0 * SOUND_SPEED / 1000;
 
     float data = (distance_mm1 + distance_mm2 + distance_mm3) / 3;
   return data;
 }
 
 void transmit_data(double cap[], double us){
-  Serial.print('trsm');
-  Serial.print(cap[0]);
-  Serial.print(cap[1]);
-  Serial.print(cap[2]);
-  Serial.print(us);
+  Serial.println("trsm");
+  Serial.println(cap[0]);
+  Serial.println(cap[1]);
+  Serial.println(cap[2]);
+  Serial.println(us);
 }
 
 double getRAcap(){
@@ -97,8 +99,6 @@ void loop(){
   digitalWrite(L1, HIGH);
   digitalWrite(L2, HIGH);
   digitalWrite(L3, HIGH);
-  if (digitalRead(btn) == 0){
-    transmit_data(get_cap(cap), getUSvalue(distance_mm));
-    delay(1000)
-  }
+  transmit_data(get_cap(cap), getUSvalue(distance_mm));
+  delay(100);
 }
