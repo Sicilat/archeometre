@@ -86,6 +86,6 @@ while True:
 	print(line)
 	if line != '':
 		handle_data(ser, line, refs)
-	#ser.flushInput()
-	#ser.flushOutput()
-	time.sleep(0.1)
+	ser.flushInput()
+	ser.flushOutput()
+	time.sleep(0.5)

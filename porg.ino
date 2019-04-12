@@ -99,6 +99,8 @@ void loop(){
   digitalWrite(L1, HIGH);
   digitalWrite(L2, HIGH);
   digitalWrite(L3, HIGH);
-  transmit_data(get_cap(cap), getUSvalue(distance_mm));
-  delay(100);
+  if (digitalRead(btn) == 0){
+    transmit_data(get_cap(cap), getUSvalue(distance_mm));
+    delay(100);
+  }
 }
