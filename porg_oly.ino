@@ -30,11 +30,12 @@ void transmit_data(double cap, double us){
 
 double getRAcap(){
   int a = 0;
+  double data = 0
   for (int i = 0; i < 1000; i++){
-    int data = analogRead(potA);
+    data += analogRead(potA);
     a++;
   }
-  double data = data / a;
+  data = data / a;
   return data;
 }
 

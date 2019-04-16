@@ -44,7 +44,7 @@ def confirm_data(data):
 		return
 
 def parse_lenght(data):
-	return (data / 1024) * 1.39
+	return ((data * -1) + 1023)/ 647 + 0.115
 
 def handle_data(ser, asw, refs):
 	if asw == 'trsm':
