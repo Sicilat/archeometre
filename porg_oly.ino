@@ -22,7 +22,7 @@ double getUSvalue(float distance_mm){
   return data;
 }
 
-void transmit_data(double cap[], double us){
+void transmit_data(double cap, double us){
   Serial.println("trsm");
   Serial.println(cap);
   Serial.println(us);
@@ -34,7 +34,7 @@ double getRAcap(){
     int data = analogRead(potA);
     a++;
   }
-  data = data / a;
+  double data = data / a;
   return data;
 }
 
