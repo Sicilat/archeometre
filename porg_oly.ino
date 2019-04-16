@@ -9,7 +9,7 @@ const int btn = 7;
 const int L1 = 3;
 double distance_mm;
 
-double getUSvalue(float distance_mm){
+double getUSvalue(float distance_mm){                 //Récupère les valeurs des capteurs ultrason en mètres
     digitalWrite(TRIGGER_PIN, HIGH);
     delayMicroseconds(10);
     digitalWrite(TRIGGER_PIN, LOW);
@@ -22,13 +22,13 @@ double getUSvalue(float distance_mm){
   return data;
 }
 
-void transmit_data(double cap, double us){
+void transmit_data(double cap, double us){          //Envoie les données dans le serial
   Serial.println("trsm");
   Serial.println(cap);
   Serial.println(us);
 }
 
-double getRAcap(){
+double getRAcap(){                //Récupère la valeur du capteur fil tendu
   int a = 0;
   double data = 0;
   for (int i = 0; i < 1000; i++){
@@ -39,20 +39,14 @@ double getRAcap(){
   return data;
 }
 
-int get_cap(double cap){
+int get_cap(double cap){            //Récupère la valeur du capteur fil tendu
   cap = getRAcap();
   return cap;
 }
 
 void setup(){
   Serial.begin(9600);
-  
-  //Initialisation des capteurs US
-
   double us = 0;
-  
-  //Initialisation du tableau des capteurs fils tendus
-  
   cap = 0;
 
   pinMode(TRIGGER_PIN, OUTPUT);   //initialise les broches.
@@ -65,7 +59,7 @@ void setup(){
 
 void loop(){
   digitalWrite(L1, HIGH);
-  if (digitalRead(btn) == 1){
+  if (digitalRead(btn) == 1){               //Si l'utilisateur appuie sur le bouton alors la transmission des données commence
     transmit_data(get_cap(cap), getUSvalue(distance_mm));
     delay(100);
   }
