@@ -31,15 +31,11 @@ void transmit_data(double cap, double us){
 double getRAcap(){
   int a = 0;
   double data = 0;
-  Serial.println("get rAcap")
   for (int i = 0; i < 1000; i++){
     data += analogRead(potA);
     a++;
   }
-  Serial.println("data full")
-  Serial.println(data)
   data = data / a;
-  Serial.println(data)
   return data;
 }
 
