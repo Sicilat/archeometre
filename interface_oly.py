@@ -28,12 +28,12 @@ def write_file(data):
 
 def confirm_data(data):
 	clear()
-	print('Received information !')
+	print('Informations reçues!')
 	print('Cap_A = ' + str(data[0]))
 	print('US =    ' + str(data[1]))
 	print('Ref_X = ' + str(data[2][0]))
 	print('Ref_Z = ' + str(data[2][1]))
-	print('Do you want to confirm these values ? (y/n)')
+	print(',Souhaitez-vous confirmer ces valeurs? (y/n)')
 	asw = 'o'
 	while asw != 'y' and asw != 'n':
 		asw = input('> ').lower()
