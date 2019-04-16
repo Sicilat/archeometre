@@ -21,8 +21,8 @@ def write_file(data):
 	f = open('./output_oly.txt', 'a', encoding = "UTF-8")
 	f.write('\nCap_A = ' + str(data[0]) + '\r\n')
 	f.write('US =    ' + str(data[1]) + '\r\n')
-	f.write('Ref_X = ' + str(data[4][0]) + '\r\n')
-	f.write('Ref_Z = ' + str(data[4][1]) + '\r\n')
+	f.write('Ref_X = ' + str(data[2][0]) + '\r\n')
+	f.write('Ref_Z = ' + str(data[2][1]) + '\r\n')
 	f.close()
 	return
 
