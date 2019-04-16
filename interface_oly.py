@@ -1,7 +1,7 @@
 import serial, time, os
 from math import *
 
-ser = serial.Serial('/dev/ttyUSB0', 9600, timeout=1)
+ser = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
 print(ser.name)
 refs = [0, 0]
 
@@ -44,7 +44,7 @@ def confirm_data(data):
 		return
 
 def parse_lenght(data):
-	return ((data * -1) + 1008)/ 371 + 0.115
+	return ((data * -1) + 1021)/ 371 + 0.115
 
 def handle_data(ser, asw, refs):
 	if asw == 'trsm':
@@ -54,14 +54,15 @@ def handle_data(ser, asw, refs):
 		refs = get_refs()
 		data[2][0], data[2][1] = refs
 		confirm_data(data)
+	else:
+		print('prob')
 	return
 
 while True:
-	s = ser.read(10)
+	s = ser.read(100)
 	line = ser.readline().rstrip().decode()
-	print(line)
 	if line != '':
 		handle_data(ser, line, refs)
 	ser.flushInput()
 	ser.flushOutput()
-	time.sleep(0.5)
+	time.sleep(0.1)
