@@ -32,16 +32,17 @@ double getUSvalue(float distance_mm){
     long measure3 = pulseIn(ECHO3_PIN, HIGH, MEASURE_TIMEOUT);
     distance_mm3 = measure3 / 2.0 * SOUND_SPEED / 1000;
 
-    float data = (distance_mm1 + distance_mm2 + distance_mm3) / 3;
-  return data;
+  return distance_mm1, distance_mm2, distance_mm3;
 }
 
-void transmit_data(double cap[], double us){
+void transmit_data(double cap[], double us[]){
   Serial.println("trsm");
   Serial.println(cap[0]);
   Serial.println(cap[1]);
   Serial.println(cap[2]);
-  Serial.println(us);
+  Serial.println(us[0]);
+  Serial.println(us[1]);
+  Serial.println(us[2]);
 }
 
 double getRAcap(){
@@ -70,10 +71,6 @@ int get_cap(double cap[]){
 
 void setup(){
   Serial.begin(9600);
-  
-  //Initialisation des capteurs US
-
-  double us = 0;
   
   //Initialisation du tableau des capteurs fils tendus
   
