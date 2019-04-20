@@ -15,8 +15,8 @@ def clear():
 	os.system('clear||cls')
 
 def write_file(data):
-	f = open('./output.txt', 'a', encoding = "UTF-8")
-	f.write('\nPos_X = ' + str(data[5]) + '\r\n' + 'Pos_Y = ' + str(data[6]) + '\r\n' + 'Pos_Z = ' + str(data[7]) + '\r\n')
+	f = open('./output.csv', 'a', encoding = "UTF-8")
+	f.write(str(data[5]) + ',' + str(data[6]) + ',' + str(data[7]) + '\r\n')
 	f.close()
 
 def confirm_data(data):
