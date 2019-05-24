@@ -42,16 +42,27 @@ def confirm_data(data):
 		write_file(data)
 
 def parse_lenght(data, cap_num):
-	if cap_num == 0:
-		return (data / 1024) * 1.39
-	elif cap_num == 1:
-		return (data / 1024) * 1.39
-	else:
-		return (data / 1024) * 1.39
+	if cap_num == 0:	#Calibration du capteur A
+		return (((data * -1) + 1020)/ 649 ) + 0.115
+	elif cap_num == 1:	#Calibration du capteur B
+		return (((data * -1) + 1020)/ 649 ) + 0.115
+	else:	#Calibration du capteur C
+		return (((data * -1) + 1020)/ 649 ) + 0.115
+
+
+		#                Valeur max du pot. au repos
+		#                         |
+		#return (((data * -1) + 1020)/ 649 ) + 0.115 --->Taille du pointeur
+		#      ___|                 |___|_________________________
+		#     |Inversion de la valeur|Valeur du capteur à un mètre|
+		#     |  du potentiomètre    |                            |
+		#     |______________________|____________________________|
 
 def calculate(info):
-	z, x = ((info[1] * info[1]) - (info[2] * info[2]) + 1) / 2 + info[5][1], ((info[0] * info[0]) - (info[1] * info[1]) - 1) / (-2) + info[5][0]
-	return x, sqrt((info[1] * info[1]) - (x * x) - (z * z)) * -1 + info[4], z
+	z = ((info[1] * info[1]) - (info[2] * info[2]) + 1) / 2 + info[5][1]	#Application de la formule pour z
+	x = ((info[0] * info[0]) - (info[1] * info[1]) - 1) / (-2) + info[5][0]	#Application de la formule pour x
+	y = sqrt((info[1] * info[1]) - (x * x) - (z * z)) * -1 + info[4]	#Application de la formule pour y
+	return x, y, z		#Envoi des valeurs hors de la fonction
 
 def getUsMid(data):
 	return (data[3][0] + data[3][1] + data[3][2]) / 3
